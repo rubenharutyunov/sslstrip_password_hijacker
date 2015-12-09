@@ -11,7 +11,7 @@ class Dependencies(object):
     """Installs script dependencies"""
     def __init__(self, deps=DEPENDENCIES):
         self.deps = deps
-        self.distr = platform.linux_distribution(supported_dists = SUPPORTED)[0]
+        self.distr = platform.linux_distribution(supported_dists = SUPPORTED)[0].lower()
         self.package_manager = PackageAutoinstall(self.distr)
         
     def install(self):
@@ -57,7 +57,7 @@ class PackageAutoinstall(object):
     def installed(self, packagename):
         """
         Returns True when package is installed. False otherwise.
-        """
+        """ 
         command = '%s %s' % (self.commands.get(self.distr).get('check'), packagename)
         process = Popen(command, shell=True, stdout=PIPE, stdin=PIPE).communicate()[0]
         if process:
