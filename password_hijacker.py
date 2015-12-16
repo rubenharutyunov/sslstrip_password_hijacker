@@ -4,8 +4,19 @@ import sys
 import time
 import utils
 import platform
-from urllib.parse import unquote
 from subprocess import Popen, PIPE
+
+# Version 2/3 support
+
+try:
+    from urllib.parse import unquote
+except ImportError:
+    from urllib import unquote
+
+try:
+   input = raw_input
+except NameError:
+   pass
 
 SUPPORTED = ['arch', 'debian', 'ubuntu', 'centos', 'fedora']
 
